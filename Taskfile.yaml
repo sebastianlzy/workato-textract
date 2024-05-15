@@ -1,6 +1,9 @@
 version: '3'
 
 tasks:
+  package-and-upload-to-lambda:
+    - task: package-lambda-fn
+    - task: upload-zip-to-lambda
   package-lambda-fn:
     cmds:
       - rm -rf package
