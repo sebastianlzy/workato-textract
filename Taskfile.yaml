@@ -1,0 +1,16 @@
+version: '3'
+
+tasks:
+  package-lambda-fn:
+    cmds:
+      - rm -rf package
+      - mkdir package
+      - pip install --target ./package -r requirements.txt
+      - cd package && zip -r ../deployment_package.zip .
+      - zip deployment_package.zip lambda_function.py
+      - chmod 755 ../deployment_package.zip
+        
+  upload-zip-to-lambda:
+    cmds: 
+      - aws lambda update-function-code --function-name workato-textract --zip-file fileb://deployment_package.zip
+    
